@@ -25,10 +25,8 @@ with open("videos.csv", "w", newline="", encoding="utf-8") as f:
 
         for item in data["items"]:
             title = item["snippet"]["title"]
-            description = item["snippet"]["description"]
             published_at = item["snippet"]["publishedAt"]
-            video_url = "https://www.youtube.com/watch?v=" + item["snippet"]["resourceId"]["videoId"]
-            writer.writerow([title, description, published_at, video_url])
+            writer.writerow([title, published_at])
 
         if "nextPageToken" in data:
             next_page_token = data["nextPageToken"]
