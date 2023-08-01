@@ -32,7 +32,7 @@ with open("videos.csv", "w", newline="", encoding="utf-8") as f:
             published_at = item['snippet']["publishedAt"]
             writer.writerow([title, published_at])
 
-        # if "nextPageToken" in data:
-        #     next_page_token = data["nextPageToken"]
+        if "nextPageToken" in data:
+            next_page_token = data["nextPageToken"]
         else:
             break
