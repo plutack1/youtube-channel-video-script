@@ -4,17 +4,17 @@ import requests
 
 import json
 import csv
-
+load_dotenv()
 channel_id = os.getenv("channel_id")
 api_key = os.getenv("api_key")
 
-print(channel_id)
 print(api_key)
 next_page_token = ""
 url = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + channel_id + "&key=" + api_key + "&part=contentDetails"
 response = requests.get(url)
 data = response.json()
-upload_id = data["uploads"]
+
+upload_id = data['items'][0]['contentDetails']['relatedPlaylists']['uploads']
 
 
 with open("videos.csv", "w", newline="", encoding="utf-8") as f:
@@ -26,9 +26,10 @@ with open("videos.csv", "w", newline="", encoding="utf-8") as f:
         response = requests.get(url)
         data = response.json()
 
-        for item in data:
-            title = item["title"]
-            published_at = item["publishedAt"]
+
+        for item in data['items']:
+            title = item['snippet']['title']
+            published_at = item['snippet']["publishedAt"]
             writer.writerow([title, published_at])
 
         # if "nextPageToken" in data:
